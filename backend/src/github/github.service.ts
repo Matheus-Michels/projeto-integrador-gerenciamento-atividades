@@ -8,15 +8,7 @@ export class GithubService {
 
   async getRepository(owner: string, repo: string) {
     const url = `https://api.github.com/repos/${owner}/${repo}`;
-    
-    try {
-      const response = await firstValueFrom(this.httpService.get(url));
-      return response.data;
-    } catch (error) {
-      throw new HttpException(
-        'Erro ao buscar o repositório no GitHub. Verifique se o nome está correto.',
-        HttpStatus.BAD_REQUEST,
-      );
-    }
+    const response = await firstValueFrom(this.httpService.get(url));
+    return response.data;
   }
 }

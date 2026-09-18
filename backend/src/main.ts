@@ -3,6 +3,7 @@ import { AppModule} from './app.module';
 import supertokens from 'supertokens-node';
 import { middleware } from 'supertokens-node/framework/express';
 import { AuthFilter } from './auth/auth.filter';
+import { GlobalExceptionFilter } from './common/filters/http-exception.filter';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule)
@@ -14,7 +15,7 @@ async function bootstrap() {
   });
 
   app.use(middleware());
-  app.useGlobalFilters(new AuthFilter());
-  await app.listen(process.env.PORT ?? 3000);
+  app.useGlobalFilters(new AuthFilter(), new GlobalExceptionFilter());
+  await app.listen(3000);
 }
 void bootstrap();
